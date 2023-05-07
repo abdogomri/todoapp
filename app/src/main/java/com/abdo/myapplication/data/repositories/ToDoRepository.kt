@@ -26,8 +26,8 @@ class ToDoRepository @Inject constructor(
         toDoDao.updateTsk(toDoTask = toDoTask)
     }
 
-    suspend fun deleteTask(taskId: Int) {
-        toDoDao.deleteTask(taskId = taskId)
+    suspend fun deleteTask(toDoTask: ToDoTask) {
+        toDoDao.deleteTask(toDoTask = toDoTask)
     }
 
     suspend fun deleteAllTasks() {

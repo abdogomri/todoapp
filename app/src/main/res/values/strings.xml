@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">todocompose</string>
+    <string name="app_name">To Do App</string>
+    <string name="add_button">Add Button</string>
+    <string name="search_button">Search Button</string>
+    <string name="sort_button">Sort Button</string>
+    <string name="selected_filter">Selected Filter</string>
+    <string name="delete_all">Delete All</string>
 </resources>
