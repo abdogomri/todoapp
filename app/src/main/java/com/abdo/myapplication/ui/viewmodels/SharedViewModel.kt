@@ -1,9 +1,13 @@
 package com.abdo.myapplication.ui.viewmodels
 
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.abdo.myapplication.data.models.ToDoTask
 import com.abdo.myapplication.data.repositories.ToDoRepository
+import com.abdo.myapplication.util.RequestState
+import com.abdo.myapplication.util.SearchAppBarState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -16,18 +20,26 @@ import javax.inject.Inject
 class SharedViewModel @Inject constructor(
     private val repository: ToDoRepository
 ) : ViewModel() {
-    private val _allTasks = MutableStateFlow<List<ToDoTask>>(emptyList())
-    val allTasks: StateFlow<List<ToDoTask>> = _allTasks.asStateFlow()
 
-    init {
+    val searchAppBarState: MutableState<SearchAppBarState> =
+        mutableStateOf(SearchAppBarState.CLOSED)
+    val searchQueryState: MutableState<String> =
+        mutableStateOf("")
 
-    }
+    private val _allTasks = MutableStateFlow<RequestState<List<ToDoTask>>>(RequestState.Idle)
+    val allTasks: StateFlow<RequestState<List<ToDoTask>>> = _allTasks.asStateFlow()
 
     fun getAllTasks() {
+        _allTasks.value = RequestState.Loading
         viewModelScope.launch(Dispatchers.IO) {
-            repository.getAllTasks.collect {
-                _allTasks.value = it
+            try {
+                repository.getAllTasks.collect {
+                    _allTasks.value = RequestState.Success(it)
+                }
+            } catch (e: Exception) {
+                _allTasks.value = RequestState.Error(e)
             }
+
         }
     }
 

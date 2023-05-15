@@ -5,4 +5,11 @@
     <string name="sort_button">Sort Button</string>
     <string name="selected_filter">Selected Filter</string>
     <string name="delete_all">Delete All</string>
+    <string name="close_search_bar_button">Close Search Bar Button</string>
+    <string name="search_for_task_hint">"Search"</string>
+    <string name="search">search</string>
+    <string name="sad_face_icon">Sad Face Icon</string>
+    <string name="no_tasks_found">No tasks found.</string>
+    <string name="add_task">Add Task</string>
+    <string name="back_arrow">Back Arrow</string>
 </resources>
